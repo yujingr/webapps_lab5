@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="content-section">
+    			<form method="POST" action="/predict">
+    				 <div class="form-group">
+    				 		<div class="row">
+
+                  <!--  COLUMN ONE  -->
+
+        				 	<div class="col-lg-6">
+
+        				 		<h1>Rossmann Store Sales Predictor</h1>
+
+        				 		<p> Rossmann operates over 3,000 drug stores in 7
+                      European countries. Currently, Rossmann store managers
+                      are tasked with predicting their daily sales for up to
+                      six weeks in advance. Store sales are influenced by many
+                      factors, including promotions, competition, school and
+                      state holidays, seasonality, and locality. With thousands
+                      of individual managers predicting sales based on their
+                      unique circumstances, the accuracy of results can be
+                      quite varied.</p>
+
+        				 		<h1>
+    							  {% if label %} {{ label }} {% endif %}
+    							</h1>
+
+    						  <br>
+    						  <button class="btn btn-lg btn-primary" type="submit">
+    						  	Predict
+    						  </button>
+
+    						</div>
+
+
+<!--  COLUMN TWO  -->
+
+<!--  START OF PART 2.2 -->
+
+						<div class="col-lg-6 mx-auto"><br>
+
+
+    					<!--  YOUR CODE START HERE-->
+    					<!--  Follow comments further down for all 5 dropdowns -->
+    					<!--
+    						 1. create drop-down for "Day_of_the_Week" feature
+						-->
+							<div class="form-group">
+								<label for="fldMonth">Month</label>
+								<select name="Month" class="form-control" id="fldMonth">
+									<option value="1">January</option>
+									<option value="2">February</option>
+									<option value="3">March</option>
+									<option value="4">April</option>
+									<option value="5">May</option>
+									<option value="6">June</option>
+									<option value="7">July</option>
+									<option value="8">August</option>
+									<option value="9">September</option>
+									<option value="10">October</option>
+									<option value="11">November</option>
+									<option value="12">December</option>
+
+								</select>
+
+								<label for="fldDayOfTheWeek">Day Of The Week</label>
+								<select name="Day_of_the_Week" class="form-control" id="fldDayOfTheWeek">
+									<option value="1">Monday</option>
+									<option value="2">Tuesday</option>
+									<option value="3">Wednesday</option>
+									<option value="4">Thursday</option>
+									<option value="5">Friday</option>
+									<option value="6">Saturday</option>
+									<option value="7">Sunday</option>
+
+								</select>
+
+							</div>
+
+
+							<!--
+                                 2. create drop-down for "Open" feature
+                            -->
+						<label for="open">Open</label><p><small>Mon - Sun | Open = 1 </small></p>
+<select name="open" id="fldOpen" class="form-control">
+	<option value="1">Yes</option>
+	<option value="0">No</option>
+</select>
+
+
+							<!--
+                                 3. create drop-down for "Promo" feature
+                            -->
+							<div class="form-group">
+								<label for="fldPromo">Promo</label>
+								<input type="checkbox" class="form-control right" checked data-toggle="toggle" aria-describedby="promoHelp"
+									   name="promo" id="fldPromo" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="warning">
+								<small id="promoHelp" class="form-text text-muted">Store running promo, or not (0/1)?.</small>
+							</div>
+							<div class="form-group">
+								<label for="fldPromo2">Promo2</label>
+								<input type="checkbox" class="form-control right" checked data-toggle="toggle" aria-describedby="promoHelp2"
+									   name="promo2" id="fldPromo2" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="warning">
+								<small id="promoHelp2" class="form-text text-muted">Store running promo2, or not (0/1)?.</small>
+							</div>
+
+							<!--
+                                 4. create drop-down for "State Holiday" feature
+                                 <label for="state_holliday">State Holiday</label><br>
+                            -->
+							<div class="form-group">
+
+								<label for="fldStateHoliday">State Holiday</label>
+                <input type="checkbox" class="form-control right" checked data-toggle="toggle" aria-describedby="stateholidayHelp"
+                     name="state_holiday" id="fldStateHoliday" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="warning">
+							</div>
+
+
+
+							<!--
+                                 5. create drop-down for "School Holiday" feature
+
+                                <label for="school_holliday">School Holiday</label><p>
+                                    <small>0 = None | 1 = public holiday <br>
+                                        3 = Easter holiday | 4 = Christmas</small></p>
+    -->
+
+
+
+							<div class="form-group">
+								<label class="mr-sm-2" for="fldSchoolHoliday">School Holiday</label>
+								<select name="SchoolHoliday" class="form-control mr-sm-2" id="fldSchoolHoliday">
+                  <option select disabled>Choose a holiday</option>
+									<option value="0">None</option>
+									<option value="1">Public</option>
+									<option value="2">Easter</option>
+									<option value="3">Christmas</option>
+								</select>
+							</div>
+							<!--  END OF PART 2.2 -->
+
+					    <div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text">Store #</span>
+							  </div>
+							  <input type="text" name="store" value = "1" class="form-control" aria-label="With textarea">
+						</div>
+
+
+
+						<div class="form-group">
+							<label class="mr-sm-2" for="fldAssortment">Assortment</label>
+							<select name="Assortment" class="form-control mr-sm-2" id="fldAssortment">
+			  <option select disabled>Assortment</option>
+								<option value="1">Basic</option>
+								<option value="2">Extra</option>
+								<option value="3">Extended</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label class="mr-sm-2" for="fldStoreType">Store Type</label>
+							<select name="StoreType" class="form-control mr-sm-2" id="fldStoreType">
+			  <option select disabled>Store Type</option>
+								<option value="1">a</option>
+								<option value="2">b</option>
+								<option value="3">c</option>
+								<option value="4">d</option>
+							</select>
+						</div>
+
+
+
+					</div>
+
+				</div>
+  			</div>
+    			</div>
+    		</form>
+    	</div>
+    </div>
+</section>
+
+{% endblock %}
